@@ -1,0 +1,18 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+
+  // TypeScript intelligence
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // Playwright extension settings
+  "playwright.reuseBrowser": false,
+  "playwright.showTrace": "on",
+
+  // Avoid VS Code auto-detecting wrong test frameworks
+  "testing.automaticallyOpenPeekView": "never",
+  "testing.defaultGutterClickAction": "run"
+}
