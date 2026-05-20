@@ -35,18 +35,37 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'sauce-setup',
+      testMatch: '**/sauce/login.setup.ts',
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'example-chromium',
+       testMatch: '**/example.spec.ts',
+      use: { ...devices['Desktop Chrome']},
     },
 
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'sauce-chromium',
+      testMatch: '**/sauce/buy.spec.ts',
+      use: { ...devices['Desktop Chrome'],
+      // Load the saved auth state for every test in this project 
+      storageState: '.auth/user.json', },
+      dependencies: ['sauce-setup'],
+    },
+
+    {
+      name: 'sauce-firefox',
+      testMatch: '**/sauce/buy.spec.ts',
+      use: { ...devices['Desktop Firefox'], storageState: '.auth/user.json' },
+      dependencies: ['sauce-setup'],
+    },
+
+    {
+      name: 'sauce-webkit',
+      testMatch : '**/sauce/buy.spec.ts',
+      use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
+      dependencies: ['sauce-setup'],
     },
 
     /* Test against mobile viewports. */
