@@ -41,7 +41,7 @@ export default defineConfig({
 
     {
       name: 'sauce-chromium',
-      testMatch: '**/sauce/buy.spec.ts',
+      testMatch: '**/sauce/**.spec.ts',
       use: { ...devices['Desktop Chrome'],
       // Load the saved auth state for every test in this project 
       storageState: '.auth/user.json', },
@@ -57,7 +57,7 @@ export default defineConfig({
 
     {
       name: 'sauce-webkit',
-      testMatch : '**/sauce/buy.spec.ts',
+      testMatch : '**/sauce/**.spec.ts',
       use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
       dependencies: ['sauce-setup'],
     },
