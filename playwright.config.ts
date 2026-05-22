@@ -50,7 +50,7 @@ export default defineConfig({
 
     {
       name: 'sauce-firefox',
-      testMatch: '**/sauce/buy.spec.ts',
+      testMatch: '**/sauce/**.spec.ts',
       use: { ...devices['Desktop Firefox'], storageState: '.auth/user.json' },
       dependencies: ['sauce-setup'],
     },
