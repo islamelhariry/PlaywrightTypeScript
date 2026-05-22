@@ -40,12 +40,6 @@ export default defineConfig({
     },
 
     {
-      name: 'example-chromium',
-       testMatch: '**/example.spec.ts',
-      use: { ...devices['Desktop Chrome']},
-    },
-
-    {
       name: 'sauce-chromium',
       testMatch: '**/sauce/buy.spec.ts',
       use: { ...devices['Desktop Chrome'],
@@ -66,6 +60,12 @@ export default defineConfig({
       testMatch : '**/sauce/buy.spec.ts',
       use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
       dependencies: ['sauce-setup'],
+    },
+
+    {
+      name: 'example-chromium',
+       testMatch: '**/example.spec.ts',
+      use: { ...devices['Desktop Chrome']},
     },
 
     /* Test against mobile viewports. */
