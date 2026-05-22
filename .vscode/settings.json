@@ -10,7 +10,7 @@
 
   // Playwright extension settings
   "playwright.reuseBrowser": false,
-  "playwright.showTrace": "on",
+  "playwright.showTrace": true,
 
   // Avoid VS Code auto-detecting wrong test frameworks
   "testing.automaticallyOpenPeekView": "never",
