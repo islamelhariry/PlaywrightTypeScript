@@ -1,7 +1,7 @@
 // spec: specs/sauce-app-basic-operations.testplan.md
 import { test, expect } from '@playwright/test';
 
-test.describe('Sauce Demo App - Basic Operations', () => {
+test.describe('Sauce Demo App - Basic Operations', { annotation: {type: 'Authorization' }}, () => {
   test('Checkout information flow', async ({ page }) => {
     // Add a product to the cart and go to checkout
     await page.goto('https://www.saucedemo.com/inventory.html');

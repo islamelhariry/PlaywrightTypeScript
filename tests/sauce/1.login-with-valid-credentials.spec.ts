@@ -1,7 +1,7 @@
 // spec: specs/sauce-app-basic-operations.testplan.md
 import { test, expect } from '@playwright/test';
 
-test.describe('Sauce Demo App - Basic Operations', () => {
+test.describe('Sauce Demo App - Basic Operations', { annotation: {type: 'Authentication' }}, () => {
   test('Login with valid credentials', async ({ page }) => {
     // Navigate to the login page
     await page.goto('https://www.saucedemo.com/');
