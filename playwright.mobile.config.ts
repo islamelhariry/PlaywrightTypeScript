@@ -1,5 +1,19 @@
 import { defineConfig, devices } from '@playwright/test';
 
+// Shared context settings for all mobile projects
+const mobileContextSettings = {
+  colorScheme: 'dark' as const,
+  geolocation: { longitude: -6.68005, latitude: 53.401108 },
+  locale: 'en-GB',
+  permissions: ['geolocation', 'notifications'],
+  timezoneId: 'Europe/Dublin',
+};
+
+const mobileTestConfig = {
+  testMatch: '**/sauce/**.spec.ts',
+  testIgnore: '**/sauce/seed.spec.ts',
+};
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -42,55 +56,35 @@ export default defineConfig({
   // globalTeardown: require.resolve('./global-teardown'),
   
 
-  /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'sauce-setup',
-      testMatch: '**/sauce/login.setup.ts',
-    },
+  // ── Setup projects ──────────────────────────────────────────
+  {
+    name: 'mobile-setup',
+    testMatch: '**/sauce/login.setup.ts',
+  },
 
-    {
-      name: 'sauce-chromium',
-      testMatch: '**/sauce/**.spec.ts',
-      testIgnore: '**/sauce/seed.spec.ts',
-      use: { ...devices['Desktop Chrome'],
-      // Load the saved auth state for every test in this project 
-      storageState: '.auth/user.json', },
-      dependencies: ['sauce-setup'],
+  // ── Test projects ───────────────────────────────────────────
+  {
+    name: 'Android Chrome',
+    ...mobileTestConfig,
+    use: {
+      ...devices['Pixel 5'],
+      ...mobileContextSettings,
+      storageState: '.auth/user.json',
     },
-
-    {
-      name: 'sauce-firefox',
-      testMatch: '**/sauce/**.spec.ts',
-      testIgnore: '**/sauce/seed.spec.ts',
-      use: { ...devices['Desktop Firefox'], storageState: '.auth/user.json' },
-      dependencies: ['sauce-setup'],
+    dependencies: ['mobile-setup'],
+  },
+  {
+    name: 'iPhone Safari',
+    ...mobileTestConfig,
+    use: {
+      ...devices['iPhone 12'],
+      ...mobileContextSettings,
+      storageState: '.auth/user.json',
     },
-
-    {
-      name: 'sauce-webkit',
-      testMatch : '**/sauce/**.spec.ts',
-      testIgnore: '**/sauce/seed.spec.ts',
-      use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
-      dependencies: ['sauce-setup'],
-    },
-
-    {
-      name: 'example-chromium',
-       testMatch: '**/example.spec.ts',
-      use: { ...devices['Desktop Chrome']},
-    },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-  ],
+    dependencies: ['mobile-setup'],
+  },
+],
 
   /* Run your local dev server before starting the tests */
   // webServer: {
